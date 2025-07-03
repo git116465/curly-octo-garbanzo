@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <title>划动切换的注册登录界面</title>
+        <link rel="stylesheet" href="css\dengluzhuce.css">
+    </head>
+
+    <body>
+        <div class="message"></div>
+        <div class="container">
+            <div class="form-box">
+                <div class="register-box hidden">
+                    <h1>register</h1>
+                    <input type="text" placeholder="用户名">
+                    <input type="email" placeholder="邮箱">
+                    <input type="password" placeholder="密码">
+                    <input type="password" placeholder="确认密码">
+                    <button>注册</button>
+                </div>
+                <div class="login-box">
+                    <h1>login</h1>
+                    <input type="text" placeholder="用户名">
+                    <input type="password" placeholder="密码">
+                    <button>登录</button>
+                </div>
+            </div>
+            <div class="con-box left">
+                <h2>糖尿病数据可视化</h2>
+                <p>快来领取你的专属<span>吉祥物</span>吧</p>
+                <img src="tupian\13..jpg" alt="">
+                <p>已有账号</p>
+                <button id="loginBtn">去登录</button>
+            </div>
+            <div class="con-box right">
+                <h2>糖尿病数据可视化</h2>
+                <p>快来看看你的专属<span>吉祥物</span>吧</p>
+                <img src="tupian/14..jpg" alt="">
+                <p>没有账号</p>
+                <button id="registerBtn">去注册</button>
+            </div>
+        </div>
+        <script>
+            let loginBtn = document.getElementById("loginBtn");
+            let registerBtn = document.getElementById("registerBtn");
+            let formBox = document.getElementsByClassName("form-box")[0];
+            let registerBox = document.getElementsByClassName("register-box")[0];
+            let loginBox = document.getElementsByClassName("login-box")[0];
+            let messageBox = document.querySelector(".message"); // 获取消息显示元素
+
+            registerBtn.addEventListener("click", () => {
+                formBox.style.transform = "translateX(82%)";
+                loginBox.classList.add("hidden");
+                registerBox.classList.remove("hidden");
+            });
+
+            loginBtn.addEventListener("click", () => {
+                formBox.style.transform = "translateX(0%)";
+                registerBox.classList.add("hidden");
+                loginBox.classList.remove("hidden");
+            });
+
+
+    // 登录处理函数
+    function handleLogin() {
+        const username = document.querySelector(".login-box input[type='text']").value;
+        const password = document.querySelector(".login-box input[type='password']").value;
+
+        // 这里应该是一个API调用，我们用一个简单的条件来模拟
+        if (username === "admin" && password === "123456") {
+            messageBox.textContent = "登录成功！";
+            messageBox.style.color = "green";
+            // 可以在这里添加跳转到另一个页面的代码
+            window.location.href = 'index.html';
+        } else {
+            messageBox.textContent = "用户名或密码错误！";
+            messageBox.style.color = "red";
+        }
+    }
+
+    // 注册处理函数
+    function handleRegister() {
+        const username = document.querySelector(".register-box input[type='text']").value;
+        const email = document.querySelector(".register-box input[type='email']").value;
+        const password = document.querySelector(".register-box input[type='password']").value;
+        const confirmPassword = document.querySelector(".register-box input[type='password'][placeholder='确认密码']").value;
+
+        if (password !== confirmPassword) {
+            messageBox.textContent = "两次密码不一致！";
+            messageBox.style.color = "red";
+            return;
+        }
+
+        // 这里应该是一个API调用，我们用一个简单的条件来模拟
+        if (username && email && password) {
+            messageBox.textContent = "注册成功！";
+            messageBox.style.color = "green";
+            // 可以在这里添加跳转到登录页面的代码
+        } else {
+            messageBox.textContent = "请填写所有字段！";
+            messageBox.style.color = "red";
+        }
+    }
+
+    // 为登录按钮添加事件监听器
+    loginBtn.addEventListener("click", () => {
+        formBox.style.transform = "translateX(0%)";
+        registerBox.classList.add("hidden");
+        loginBox.classList.remove("hidden");
+    });
+
+    // 为注册按钮添加事件监听器
+    registerBtn.addEventListener("click", () => {
+        formBox.style.transform = "translateX(82%)";
+        loginBox.classList.add("hidden");
+        registerBox.classList.remove("hidden");
+    });
+
+    // 为登录表单添加提交事件监听器
+    document.querySelector(".login-box button").addEventListener("click", function(event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+        handleLogin();
+    });
+
+    // 为注册表单添加提交事件监听器
+    document.querySelector(".register-box button").addEventListener("click", function(event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+        handleRegister();
+    });
+            
+        </script>
+    </body>
+</html>
